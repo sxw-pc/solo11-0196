@@ -47,6 +47,15 @@ def calculate(events):
                                                 and handover.get('to') == b['driver']
                                                 and b['start'] <= handover.get('at', '') <= a['end']
                                                 for a, b in overlaps)
+        complaint = trip.get('complaint') if trip else None
+        driver_dispute = bool(isinstance(complaint, dict)
+                              and complaint.get('reason') == 'driver_identity'
+                              and complaint.get('passenger_signature')
+                              and complaint.get('reviewer_signature')
+                              and complaint.get('vehicle') == trip['vehicle']
+                              and complaint.get('observed_driver') != trip['driver']
+                              and complaint.get('observed_driver')
+                              and trip['start'] <= complaint.get('observed_at', '') <= trip['end'])
         region_ok = bool(trip and applicable and trip['region'] in applicable[0]['regions'])
         old_driver = bool(trip and handover and trip['driver'] == handover.get('from')
                           and trip['end'] > handover.get('at', '9999'))
@@ -69,23 +78,23 @@ def calculate(events):
             if segment.get('stationary') and segment.get('timestamp_trusted'):
                 wait_fee += segment['wait_minutes'] * rate['per_wait_minute']
         fare = round(fare + wait_fee, 2)
-        settlement_ok = calibrated and not conflict and driver_ok and overlap_resolved and region_ok and not old_driver and not gap and not rate_missing
+        settlement_ok = calibrated and not conflict and driver_ok and overlap_resolved and region_ok and not old_driver and not gap and not rate_missing and not driver_dispute
         paid = trip.get('paid', 0) if trip else 0
         refund = round(max(0, paid - fare), 2) if settlement_ok else None
         output[prefix+'计价器校准是否覆盖起终点'] = record('有效' if calibrated else '失准', '检定起止与撤销状态', evidence)
         output[prefix+'同版费率冲突是否冻结计费'] = record('冻结' if conflict else '无冲突', '相同区域版次时段的价格一致性', evidence)
         output[prefix+'跨费率时段如何分段计费'] = record(f'{fare:.2f}' if settlement_ok else '待核', '逐段里程时段与费率匹配', evidence)
         output[prefix+'司机证书是否覆盖班次'] = record('有效' if driver_ok else '无资质', '营运许可覆盖整个行程', evidence)
-        output[prefix+'同车班次重叠由谁承运'] = record('已交班' if overlaps and overlap_resolved else '争议' if overlaps else '无重叠', '同车重叠与交班回执', evidence)
+        output[prefix+'同车班次重叠由谁承运'] = record('申诉重开' if driver_dispute else '已交班' if overlaps and overlap_resolved else '争议' if overlaps else '无重叠', '同车重叠、交班回执与双签司机身份申诉', evidence)
         output[prefix+'越区路线是否触发权限争议'] = record('正常' if region_ok else '越区', '司机班次许可区域与行程区域', evidence)
-        output[prefix+'交班后旧司机能否继续接单'] = record('禁止' if old_driver else '允许', '交班时刻和接单司机', evidence)
+        output[prefix+'交班后旧司机能否继续接单'] = record('禁止' if old_driver else '待核' if driver_dispute else '允许', '交班时刻、接单司机和申诉观察', evidence)
         output[prefix+'轨迹缺口是否阻止确定里程'] = record('阻止' if gap else '完整', '相邻里程片段的时戳闭合', evidence)
         output[prefix+'候车时长是否据可信时间戳计价'] = record(f'{wait_fee:.2f}', '仅停车且可信时间戳计费', evidence)
         output[prefix+'多收款是否形成退款债务'] = record(f'{refund:.2f}' if refund is not None else '待核', '可信应收与支付差额', evidence)
         if meter:
             states.append(('计价器与费率确权', case, '有效' if calibrated and not conflict else '冻结', meter['version']))
         if shift:
-            states.append(('司机车辆营运班次', case, '可派' if driver_ok and overlap_resolved and region_ok and not old_driver else '争议', shift['version']))
+            states.append(('司机车辆营运班次', case, '可派' if driver_ok and overlap_resolved and region_ok and not old_driver and not driver_dispute else '争议', shift['version']))
         if trip:
             states.append(('行程价款与申诉', case, '可结算' if settlement_ok else '待核', trip['version']))
     return output, states

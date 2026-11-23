@@ -29,6 +29,13 @@
         "wait_minutes": 5
       }
     ],
-    "complaint": "late-track-gap"
+    "complaint": {
+      "reason": "driver_identity",
+      "vehicle": "TAXI-1",
+      "observed_driver": "D2",
+      "observed_at": "2026-11-24T09:05",
+      "passenger_signature": "P1",
+      "reviewer_signature": "R1"
+    }
   }
 ]

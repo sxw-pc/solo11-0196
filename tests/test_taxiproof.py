@@ -35,6 +35,7 @@ class TaxiProofTests(unittest.TestCase):
         self.assertEqual(self.result('交班后旧司机能否继续接单'), '禁止')
         self.load('trip', 'trip-bad.json')
         self.assertEqual(self.result('轨迹缺口是否阻止确定里程'), '阻止')
+        self.assertEqual(self.result('同车班次重叠由谁承运'), '申诉重开')
         self.assertEqual(self.result('多收款是否形成退款债务'), '待核')
         self.assertTrue(audit(self.db)['ok'])
         self.assertEqual(len(report(self.db)['entities']), 3)
@@ -78,6 +79,41 @@ class TaxiProofTests(unittest.TestCase):
         self.assertEqual(self.result('候车时长是否据可信时间戳计价'), '0.00')
         self.assertEqual(self.result('跨费率时段如何分段计费'), '27.00')
         self.assertEqual(self.result('多收款是否形成退款债务'), '13.00')
+
+    def test_signed_driver_complaint_reopens_shift_and_later_review_recovers(self):
+        for kind, name in [('meter', 'meter-ok.json'), ('shift', 'shift-ok.json'),
+                           ('trip', 'trip-ok.json')]:
+            self.load(kind, name)
+        baseline = {key: value['result'] for key, value in report(self.db)['decisions'].items()}
+        self.assertEqual(self.result('同车班次重叠由谁承运'), '无重叠')
+        self.assertEqual(self.result('多收款是否形成退款债务'), '9.00')
+        trip = json.loads((ROOT / 'fixtures' / 'trip-ok.json').read_text(encoding='utf-8'))
+        trip[0].update(id='T-UNSIGNED', version=2, effective_at='2026-11-24T10:00')
+        trip[0]['complaint'] = {'reason': 'driver_identity', 'vehicle': 'TAXI-1',
+                                'observed_driver': 'D2', 'observed_at': '2026-11-24T09:05',
+                                'passenger_signature': 'P1'}
+        target = Path(self.temp.name) / 'complaint.json'
+        target.write_text(json.dumps(trip), encoding='utf-8')
+        import_file(self.db, 'trip', target)
+        self.assertEqual({key: value['result'] for key, value in report(self.db)['decisions'].items()}, baseline)
+        trip[0].update(id='T-DISPUTE', version=3, effective_at='2026-11-24T10:10')
+        trip[0]['complaint']['reviewer_signature'] = 'R1'
+        target.write_text(json.dumps(trip), encoding='utf-8')
+        import_file(self.db, 'trip', target)
+        self.assertEqual(self.result('同车班次重叠由谁承运'), '申诉重开')
+        self.assertEqual(self.result('交班后旧司机能否继续接单'), '待核')
+        self.assertEqual(self.result('跨费率时段如何分段计费'), '待核')
+        self.assertEqual(self.result('多收款是否形成退款债务'), '待核')
+        state = {e['subsystem']: e['state'] for e in report(self.db)['entities']}
+        self.assertEqual(state['司机车辆营运班次'], '争议')
+        self.assertEqual(state['行程价款与申诉'], '待核')
+        trip[0].update(id='T-REVIEW-CLEARED', version=4, effective_at='2026-11-24T10:20')
+        trip[0]['complaint'] = None
+        target.write_text(json.dumps(trip), encoding='utf-8')
+        import_file(self.db, 'trip', target)
+        self.assertEqual({key: value['result'] for key, value in report(self.db)['decisions'].items()}, baseline)
+        self.assertTrue(audit(self.db)['ok'])
+        self.assertGreater(len(report(self.db)['decision_history']), len(baseline))
 
 
 if __name__ == '__main__':
