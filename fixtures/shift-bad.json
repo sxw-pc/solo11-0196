@@ -1,0 +1,38 @@
+[
+  {
+    "id": "S2",
+    "kind": "shift",
+    "case_id": "TRIP-1",
+    "version": 2,
+    "effective_at": "2026-11-24T10:10",
+    "assignments": [
+      {
+        "driver": "D1",
+        "vehicle": "TAXI-1",
+        "start": "2026-11-24T08:00",
+        "end": "2026-11-24T12:00",
+        "license_until": "2026-12-31T00:00",
+        "permit_until": "2026-12-31T00:00",
+        "regions": [
+          "CENTRAL"
+        ]
+      },
+      {
+        "driver": "D2",
+        "vehicle": "TAXI-1",
+        "start": "2026-11-24T09:00",
+        "end": "2026-11-24T13:00",
+        "license_until": "2026-12-31T00:00",
+        "permit_until": "2026-12-31T00:00",
+        "regions": [
+          "OUTER"
+        ]
+      }
+    ],
+    "handover": {
+      "from": "D1",
+      "to": "D2",
+      "at": "2026-11-24T09:00"
+    }
+  }
+]

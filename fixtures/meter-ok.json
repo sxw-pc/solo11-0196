@@ -1,0 +1,33 @@
+[
+  {
+    "id": "M1",
+    "kind": "meter",
+    "case_id": "TRIP-1",
+    "version": 1,
+    "effective_at": "2026-11-24T08:00",
+    "calibration": {
+      "valid_from": "2026-11-01T00:00",
+      "valid_until": "2026-12-31T00:00",
+      "factor": 1.0,
+      "revoked": false
+    },
+    "rates": [
+      {
+        "region": "CENTRAL",
+        "revision": "A",
+        "start": "2026-11-24T00:00",
+        "end": "2026-11-24T09:00",
+        "per_km": 3,
+        "per_wait_minute": 0.5
+      },
+      {
+        "region": "CENTRAL",
+        "revision": "B",
+        "start": "2026-11-24T09:00",
+        "end": "2026-11-25T00:00",
+        "per_km": 4,
+        "per_wait_minute": 0.8
+      }
+    ]
+  }
+]
