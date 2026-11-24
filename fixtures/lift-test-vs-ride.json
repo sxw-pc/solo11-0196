@@ -1,0 +1,6 @@
+{
+  "booking": {"id":"BOOK-1","vehicle":"TAXI-1","passenger":"P1","window_start":"09:00","window_end":"09:30"},
+  "events": [
+    {"id":"L1","vehicle":"TAXI-1","stage":"deployed","at":"09:05","device":"BUS-7","purpose":"unknown"}
+  ]
+}
