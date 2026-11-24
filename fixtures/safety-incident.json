@@ -1,0 +1,10 @@
+{
+  "alerts": [
+    {"id": "A1", "trip_id": "T1", "signals": {"panic_button": true, "driver_ack": false}, "gps": {"point": "P1", "reported_radius_km": 4, "candidate_points": ["P1", "P2"]}},
+    {"id": "A2", "trip_id": "T2", "signals": {"panic_button": true, "driver_ack": false}, "gps": {"point": "P1", "reported_radius_km": 0, "candidate_points": ["P1"]}}
+  ],
+  "units": [
+    {"id": "U1", "on_duty": true, "eta_minutes": {"P1": 4, "P2": 18}},
+    {"id": "U2", "on_duty": true, "eta_minutes": {"P1": 9, "P2": 8}}
+  ]
+}
