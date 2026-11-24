@@ -3,6 +3,30 @@ from collections import defaultdict
 from .decisions import make_decision
 
 
+def driver_assignment(assignments, driver, start, end):
+    """Return the shift assignment carrying *driver* over the whole [start, end] window."""
+    matches = [a for a in assignments if a['driver'] == driver
+               and a['start'] <= start and a['end'] >= end]
+    return matches[0] if matches else None
+
+
+def permits_cover(assignment, end):
+    """License and area permit must stay valid through the end of service."""
+    return bool(assignment and assignment['license_until'] >= end
+                and assignment['permit_until'] >= end)
+
+
+def region_covered(assignment, region):
+    """The shift assignment, not a vehicle whitelist, authorizes the service region."""
+    return bool(assignment and region in assignment['regions'])
+
+
+def assignment_authority(assignment, region, start, end):
+    """Single authority predicate: shift coverage is checked by driver_assignment first."""
+    return bool(assignment and permits_cover(assignment, end)
+                and region_covered(assignment, region))
+
+
 def recent(events, kind):
     groups = defaultdict(list)
     for event in events:
@@ -36,10 +60,8 @@ def calculate(events):
                 rate_keys[(rate['region'], rate['revision'], rate['start'], rate['end'])].add(rate['per_km'])
         conflict = any(len(prices) > 1 for prices in rate_keys.values())
         assignments = shift.get('assignments', []) if shift else []
-        applicable = [a for a in assignments if trip and a['driver'] == trip['driver']
-                      and a['start'] <= trip['start'] and a['end'] >= trip['end']]
-        driver_ok = bool(applicable and applicable[0]['license_until'] >= trip['end']
-                         and applicable[0]['permit_until'] >= trip['end'])
+        applicable = driver_assignment(assignments, trip['driver'], trip['start'], trip['end']) if trip else None
+        driver_ok = bool(permits_cover(applicable, trip['end'])) if trip else False
         overlaps = [(a, b) for i, a in enumerate(assignments) for b in assignments[i+1:]
                     if a['vehicle'] == b['vehicle'] and a['start'] < b['end'] and b['start'] < a['end']]
         handover = shift.get('handover', {}) if shift else {}
@@ -56,7 +78,7 @@ def calculate(events):
                               and complaint.get('observed_driver') != trip['driver']
                               and complaint.get('observed_driver')
                               and trip['start'] <= complaint.get('observed_at', '') <= trip['end'])
-        region_ok = bool(trip and applicable and trip['region'] in applicable[0]['regions'])
+        region_ok = bool(trip and region_covered(applicable, trip['region']))
         old_driver = bool(trip and handover and trip['driver'] == handover.get('from')
                           and trip['end'] > handover.get('at', '9999'))
         segments = trip.get('segments', []) if trip else []

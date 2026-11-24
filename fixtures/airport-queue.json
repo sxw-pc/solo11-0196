@@ -1,10 +1,87 @@
 {
   "requests": [
-    {"id": "P1", "landing_minute": 375, "baggage_minutes": 15, "flight_delay_minutes": 0, "latest_pickup_minute": 410, "region": "CITY", "passengers": 2},
-    {"id": "P2", "landing_minute": 385, "baggage_minutes": 20, "flight_delay_minutes": 0, "latest_pickup_minute": 420, "region": "CITY", "passengers": 1}
+    {
+      "id": "P1",
+      "flight": "CA1831",
+      "passenger_name": "P1-PARTY",
+      "landing_minute": 375,
+      "baggage_minutes": 15,
+      "flight_delay_minutes": 0,
+      "latest_pickup_minute": 410,
+      "region": "CITY",
+      "passengers": 2
+    },
+    {
+      "id": "P2",
+      "flight": "MU5102",
+      "passenger_name": "P2-PARTY",
+      "landing_minute": 385,
+      "baggage_minutes": 20,
+      "flight_delay_minutes": 0,
+      "latest_pickup_minute": 420,
+      "region": "CITY",
+      "passengers": 1
+    }
   ],
   "cabs": [
-    {"id": "CAB-1", "ready_minute": 380, "seats": 4, "regions": ["CITY"], "queue_ticket_minute": 370, "return_to_curb_minutes": 20},
-    {"id": "CAB-2", "ready_minute": 405, "seats": 4, "regions": ["CITY"], "queue_ticket_minute": 375, "return_to_curb_minutes": 35}
+    {
+      "id": "CAB-1",
+      "driver": "D1",
+      "ready_minute": 380,
+      "seats": 4,
+      "regions": ["CITY"],
+      "queue_ticket_minute": 370,
+      "initial_ticket_id": "CAB-1-T1",
+      "return_to_curb_minutes": 20,
+      "shift": {
+        "id": "SHIFT-D1",
+        "assignments": [
+          {
+            "driver": "D1",
+            "vehicle": "CAB-1",
+            "start": 300,
+            "end": 720,
+            "license_until": 1440,
+            "permit_until": 1440,
+            "regions": ["CITY"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "CAB-2",
+      "driver": "D2",
+      "ready_minute": 405,
+      "seats": 4,
+      "regions": ["OUTER"],
+      "queue_ticket_minute": 375,
+      "initial_ticket_id": "CAB-2-T1",
+      "return_to_curb_minutes": 35,
+      "shift": {
+        "id": "SHIFT-D2",
+        "assignments": [
+          {
+            "driver": "D2",
+            "vehicle": "CAB-2",
+            "start": 300,
+            "end": 720,
+            "license_until": 1440,
+            "permit_until": 1440,
+            "regions": ["CITY"]
+          }
+        ]
+      }
+    }
+  ],
+  "standby_authorizations": [
+    {
+      "id": "STANDBY-CAB2",
+      "cab": "CAB-2",
+      "driver": "D2",
+      "issued_minute": 360,
+      "valid_from": 360,
+      "valid_until": 450,
+      "evidence": "DISPATCH-STANDBY-001"
+    }
   ]
 }
