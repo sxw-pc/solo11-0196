@@ -1,0 +1,41 @@
+{
+  "start": "07:00",
+  "end": "08:00",
+  "grid_cap_kw": 30,
+  "chargers": [
+    {
+      "id": "C1",
+      "kw": 22,
+      "connector": "CCS"
+    },
+    {
+      "id": "C2",
+      "kw": 22,
+      "connector": "CCS"
+    }
+  ],
+  "jobs": [
+    {
+      "vehicle": "CAB-4",
+      "required_kwh": 20,
+      "departure": "08:00",
+      "trip": "T-91",
+      "connector": "CCS",
+      "priority": "medical"
+    },
+    {
+      "vehicle": "CAB-9",
+      "required_kwh": 18,
+      "departure": "08:00",
+      "trip": "T-92",
+      "connector": "CCS",
+      "priority": "ordinary"
+    }
+  ],
+  "reserve_vehicle": {
+    "vehicle": "CAB-10",
+    "available": "07:30",
+    "charge_ready": true,
+    "can_cover": "T-92"
+  }
+}
