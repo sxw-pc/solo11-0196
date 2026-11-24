@@ -1,6 +1,77 @@
 {
-  "booking": {"id":"BOOK-1","vehicle":"TAXI-1","passenger":"P1","window_start":"09:00","window_end":"09:30"},
+  "booking": {"id":"BOOK-1","vehicle":"TAXI-1","passenger":"P1","date":"2026-11-24","window_start":"09:00","window_end":"09:30"},
   "events": [
     {"id":"L1","vehicle":"TAXI-1","stage":"deployed","at":"09:05","device":"BUS-7","purpose":"unknown"}
-  ]
+  ],
+  "registry": {
+    "gateway:TAXI-1": "gw-taxi-1-key",
+    "gateway:TAXI-2": "gw-taxi-2-key",
+    "bench:BENCH-9": "bench-9-key",
+    "camera:CAM-11": "cam-11-key",
+    "camera:CAM-22": "cam-22-key",
+    "counter:TAXI-1": "cnt-taxi-1-key",
+    "dispatch:OPS": "ops-key",
+    "passenger:P1": "p1-key",
+    "passenger:P2": "p2-key"
+  },
+  "shifts": [
+    {
+      "id": "SH-1",
+      "kind": "shift",
+      "case_id": "BOOK-1",
+      "version": 1,
+      "effective_at": "2026-11-24T08:00",
+      "assignments": [
+        {"driver":"D1","vehicle":"TAXI-1","start":"2026-11-24T08:00","end":"2026-11-24T12:00","license_until":"2026-12-31T00:00","permit_until":"2026-12-31T00:00","regions":["CENTRAL"]},
+        {"driver":"D2","vehicle":"TAXI-2","start":"2026-11-24T08:00","end":"2026-11-24T12:00","license_until":"2026-12-31T00:00","permit_until":"2026-12-31T00:00","regions":["CENTRAL"]}
+      ],
+      "handover": {}
+    }
+  ],
+  "trips": [
+    {"id":"TR-1","kind":"trip","case_id":"BOOK-1","version":1,"effective_at":"2026-11-24T09:30","start":"2026-11-24T09:02","end":"2026-11-24T09:24","driver":"D1","vehicle":"TAXI-1","region":"CENTRAL","paid":0,"segments":[],"complaint":null},
+    {"id":"TR-2","kind":"trip","case_id":"BOOK-1-REDISPATCH","version":1,"effective_at":"2026-11-24T09:45","start":"2026-11-24T09:10","end":"2026-11-24T09:40","driver":"D2","vehicle":"TAXI-2","region":"CENTRAL","paid":0,"segments":[],"complaint":null}
+  ],
+  "investigations": {
+    "taxi1_onboard": {
+      "note": "运营商调取 TAXI-1 独立坡板摄像头、车载乘客计数与 P1 签认，三者证实 P1 在窗口内上车",
+      "events": [
+        {"id":"W-CAM-1","kind":"camera","vehicle":"TAXI-1","at":"09:06","passenger":"P1","source":"camera:CAM-11"},
+        {"id":"W-CNT-1","kind":"passenger_count","vehicle":"TAXI-1","at":"09:07","delta":1,"source":"counter:TAXI-1"},
+        {"id":"W-SGN-1","kind":"signoff","vehicle":"TAXI-1","at":"09:08","passenger":"P1","role":"boarding","source":"passenger:P1"},
+        {"id":"L2","vehicle":"TAXI-1","stage":"secured","at":"09:09","device":"BUS-7","purpose":"passenger_service","passenger":"P1","source":"gateway:TAXI-1"}
+      ]
+    },
+    "taxi2_redispatch": {
+      "note": "BUS-7 维修台原件证明 L1 系未载人自检；TAXI-2 转派订单、P1 乘降签认与真实坡板动作齐全",
+      "events": [
+        {"id":"L1-BENCH","vehicle":"TAXI-1","stage":"deployed","at":"09:05","device":"BUS-7","purpose":"self_check","source":"bench:BENCH-9"},
+        {"id":"L1-FWD","vehicle":"TAXI-2","stage":"deployed","at":"09:05","device":"BUS-7","purpose":"unknown","source":"gateway:TAXI-2"},
+        {"id":"W-DSP-2","kind":"dispatch","booking":"BOOK-1","vehicle":"TAXI-2","at":"09:08","reason":"TAXI-1 未接上乘客","source":"dispatch:OPS"},
+        {"id":"L3","vehicle":"TAXI-2","stage":"deployed","at":"09:12","device":"BUS-3","purpose":"passenger_service","passenger":"P1","source":"gateway:TAXI-2"},
+        {"id":"W-CAM-2","kind":"camera","vehicle":"TAXI-2","at":"09:13","passenger":"P1","source":"camera:CAM-22"},
+        {"id":"W-SGN-2","kind":"signoff","vehicle":"TAXI-2","at":"09:14","passenger":"P1","role":"boarding","source":"passenger:P1"},
+        {"id":"L4","vehicle":"TAXI-2","stage":"secured","at":"09:15","device":"BUS-3","purpose":"passenger_service","passenger":"P1","source":"gateway:TAXI-2"},
+        {"id":"W-SGN-3","kind":"signoff","vehicle":"TAXI-2","at":"09:26","passenger":"P1","role":"alighting","source":"passenger:P1"}
+      ]
+    },
+    "taxi2_redispatch_insufficient": {
+      "note": "仅有自检证明与转派订单，缺少 P1 上车交接证据与轮椅固定，不能认定履约",
+      "events": [
+        {"id":"L1-BENCH","vehicle":"TAXI-1","stage":"deployed","at":"09:05","device":"BUS-7","purpose":"self_check","source":"bench:BENCH-9"},
+        {"id":"W-DSP-2","kind":"dispatch","booking":"BOOK-1","vehicle":"TAXI-2","at":"09:08","reason":"TAXI-1 未接上乘客","source":"dispatch:OPS"},
+        {"id":"L3","vehicle":"TAXI-2","stage":"deployed","at":"09:12","device":"BUS-3","purpose":"passenger_service","source":"gateway:TAXI-2"}
+      ]
+    }
+  },
+  "concurrent": {
+    "booking": {"id":"BOOK-2","vehicle":"TAXI-2","passenger":"P2","date":"2026-11-24","window_start":"09:15","window_end":"09:45"},
+    "events": [
+      {"id":"W-DSP-3","kind":"dispatch","booking":"BOOK-2","vehicle":"TAXI-1","at":"09:16","reason":"TAXI-2 调度冲突","source":"dispatch:OPS"},
+      {"id":"L5","vehicle":"TAXI-1","stage":"deployed","at":"09:20","device":"BUS-7","purpose":"passenger_service","passenger":"P2","source":"gateway:TAXI-1"},
+      {"id":"W-CAM-3","kind":"camera","vehicle":"TAXI-1","at":"09:21","passenger":"P2","source":"camera:CAM-11"},
+      {"id":"W-SGN-4","kind":"signoff","vehicle":"TAXI-1","at":"09:22","passenger":"P2","role":"boarding","source":"passenger:P2"},
+      {"id":"L6","vehicle":"TAXI-1","stage":"secured","at":"09:23","device":"BUS-7","purpose":"passenger_service","passenger":"P2","source":"gateway:TAXI-1"}
+    ]
+  }
 }
