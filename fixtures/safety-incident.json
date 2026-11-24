@@ -5,6 +5,7 @@
   ],
   "units": [
     {"id": "U1", "on_duty": true, "eta_minutes": {"P1": 4, "P2": 18}},
-    {"id": "U2", "on_duty": true, "eta_minutes": {"P1": 9, "P2": 8}}
+    {"id": "U2", "on_duty": true, "eta_minutes": {"P1": 9, "P2": 8}},
+    {"id": "U3", "on_duty": true, "eta_minutes": {"P1": 11, "P2": 12}}
   ]
 }
