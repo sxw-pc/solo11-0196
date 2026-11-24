@@ -1,0 +1,10 @@
+{
+  "trip": {"id": "TRIP-1", "start_second": 1000, "end_second": 1060, "incident_start_second": 1015, "incident_end_second": 1020},
+  "segments": [
+    {"id": "FRONT-1", "camera": "front", "start_second": 1000, "end_second": 1025, "sha256": "a11"},
+    {"id": "FRONT-2", "camera": "front", "start_second": 1035, "end_second": 1060, "sha256": "a22"},
+    {"id": "REAR-1", "camera": "rear", "start_second": 1020, "end_second": 1040, "clock_offset_seconds": 2, "sha256": "b11"}
+  ],
+  "permissions": {"investigator_raw": true, "customer_redacted": true},
+  "retention_until_second": 2000
+}
