@@ -1,0 +1,34 @@
+{
+  "trip": "T-72",
+  "claimant": "P-72",
+  "claimed_seal": "S-A",
+  "scans": [
+    {
+      "id": "S1",
+      "trip": "T-72",
+      "kind": "depot",
+      "seal": "S-A",
+      "at": "18:00",
+      "custodian": "D-4"
+    },
+    {
+      "id": "S2",
+      "trip": "T-72",
+      "kind": "handover",
+      "seal": "S-B",
+      "at": "18:10",
+      "custodian": "D-4",
+      "recipient": "P-72"
+    }
+  ],
+  "photos": [
+    {
+      "seal": "S-A",
+      "description": "blue laptop sleeve"
+    },
+    {
+      "seal": "S-B",
+      "description": "black briefcase"
+    }
+  ]
+}
