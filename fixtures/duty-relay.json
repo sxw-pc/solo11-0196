@@ -1,8 +1,77 @@
 {
   "driver": "D1",
+  "date": "2026-11-24",
+  "timezone": "+08:00",
+  "vehicle": "TAXI-1",
   "maximum_minutes": 480,
+  "cap": 480,
   "logs": [
-    {"id":"METER-1","driver":"D1","minutes":300,"source":"meter","start":"08:00","end":"13:00"},
-    {"id":"PLATFORM-9","driver":"D1","minutes":300,"source":"dispatch","start":"08:02","end":"13:02"}
-  ]
+    {"id": "METER-1", "driver": "D1", "minutes": 300, "source": "meter", "start": "08:00", "end": "13:00"},
+    {"id": "PLATFORM-9", "driver": "D1", "minutes": 300, "source": "dispatch", "start": "08:02", "end": "13:02"}
+  ],
+  "forensic_paths": {
+    "relay": {
+      "authorized_by": "值班队长-取证路径甲",
+      "conclusion": "PLATFORM-9 是 METER-1 第一班的代理转发，同一劳动区间，D1 当日 300 分钟",
+      "expected_minutes": 300,
+      "expected_status": "dispatchable",
+      "expected_remaining_minutes": 180,
+      "evidence": [
+        {"id": "PROV-CHAIN-9", "kind": "provenance", "report": "PLATFORM-9", "origin_report": "METER-1", "relation": "relay", "order_ids": ["ORDER-7"], "chain": ["PLATFORM-9", "ORDER-7", "METER-1"], "note": "平台回源链显示派单报文转发自计价器班次报文"},
+        {"id": "ORDER-7", "kind": "order", "order_id": "ORDER-7", "meter_report": "METER-1", "platform_report": "PLATFORM-9", "vehicle": "TAXI-1", "start": "2026-11-24T08:03:00+08:00", "end": "2026-11-24T12:54:00+08:00"},
+        {"id": "PULSE-0800", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T08:00:00+08:00", "speed_kmh": 0, "ignition": "on"},
+        {"id": "PULSE-0830", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T08:30:00+08:00", "speed_kmh": 32, "ignition": "on"},
+        {"id": "PULSE-0900", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T09:00:00+08:00", "speed_kmh": 41, "ignition": "on"},
+        {"id": "PULSE-0930", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T09:30:00+08:00", "speed_kmh": 28, "ignition": "on"},
+        {"id": "PULSE-1000", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T10:00:00+08:00", "speed_kmh": 36, "ignition": "on"},
+        {"id": "PULSE-1030", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T10:30:00+08:00", "speed_kmh": 22, "ignition": "on"},
+        {"id": "PULSE-1100", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T11:00:00+08:00", "speed_kmh": 30, "ignition": "on"},
+        {"id": "PULSE-1130", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T11:30:00+08:00", "speed_kmh": 44, "ignition": "on"},
+        {"id": "PULSE-1200", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T12:00:00+08:00", "speed_kmh": 18, "ignition": "on"},
+        {"id": "PULSE-1230", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T12:30:00+08:00", "speed_kmh": 26, "ignition": "on"},
+        {"id": "PULSE-1300", "kind": "pulse", "vehicle": "TAXI-1", "at": "2026-11-24T13:00:00+08:00", "speed_kmh": 0, "ignition": "off", "continuous": true, "note": "08:00-13:00 连续脉冲，13:00 熄火；不存在 13:02-18:02 的第二段车辆移动"}
+      ]
+    },
+    "second_device": {
+      "authorized_by": "值班队长-取证路径乙",
+      "conclusion": "DISPATCH-B 比计价器纪元慢 5 小时，两段均经 D1 签认，D1 实际驾驶 600 分钟，禁止再派并撤销原可派通知",
+      "expected_minutes": 600,
+      "expected_status": "blocked",
+      "expected_remaining_minutes": 0,
+      "offset_minutes": 300,
+      "evidence": [
+        {"id": "CAL-METER-A", "kind": "calibration", "device": "METER-A", "correction_minutes": 0, "source": "metrology-anchor", "note": "计价器独立检定锚，与权威时一致"},
+        {"id": "CAL-DISPATCH-B", "kind": "calibration", "device": "DISPATCH-B", "device_at": "2026-11-24T08:02:00", "authoritative_at": "2026-11-24T13:02:00+08:00", "slow_minutes": 300, "source": "independent-time-service-original", "note": "第二设备独立授时原件：显示 08:02 时权威时为 13:02，慢五小时"},
+        {"id": "ACK-D1-METER", "kind": "signature", "report": "METER-1", "segment": "SEG-MORNING", "driver": "D1", "signed_at": "2026-11-24T13:05:00+08:00", "signature": "D1-handwritten-1", "note": "第一段司机签认"},
+        {"id": "ACK-D1-PLATFORM", "kind": "signature", "report": "PLATFORM-9", "segment": "SEG-AFTERNOON", "driver": "D1", "signed_at": "2026-11-24T18:05:00+08:00", "signature": "D1-handwritten-2", "note": "第二段单独司机签认"}
+      ]
+    }
+  },
+  "shared_login": {
+    "driver": "D1",
+    "vehicle": "TAXI-2",
+    "logs": [
+      {"id": "SHARED-R1", "driver": "ACCOUNT-7", "minutes": 240, "source": "dispatch", "start": "09:00", "end": "13:00", "vehicle": "TAXI-2"}
+    ],
+    "logins": [
+      {"id": "LOGIN-SHARED-7", "kind": "login", "login_id": "ACCOUNT-7", "vehicle": "TAXI-2", "login_at": "2026-11-24T08:50:00+08:00", "logout_at": "2026-11-24T13:10:00+08:00", "drivers": ["D1", "D2"], "shared": true, "note": "D1/D2 共用同一终端登录"}
+    ],
+    "conflicting_signatures": [
+      {"id": "ACK-SHARED-D1", "kind": "signature", "report": "SHARED-R1", "driver": "D1", "signature": "D1"},
+      {"id": "ACK-SHARED-D2", "kind": "signature", "report": "SHARED-R1", "driver": "D2", "signature": "D2"}
+    ]
+  },
+  "late_calibration": {
+    "driver": "D1",
+    "shift_id": "SH-D1-20261124",
+    "initial_notice_id": "DN-D1-EARLY",
+    "initial_minutes": 300,
+    "arrives_at": "2026-11-24T19:10:00+08:00",
+    "other_driver": {"driver": "D2", "shift_id": "SH-D2-20261124", "minutes": 420, "notice_id": "DN-D2-KEEP"},
+    "calibration": {"id": "CAL-DISPATCH-B-LATE", "kind": "calibration", "device": "DISPATCH-B", "device_at": "2026-11-24T08:02:00", "authoritative_at": "2026-11-24T13:02:00+08:00", "slow_minutes": 300},
+    "evidence": [
+      {"id": "ACK-D1-METER-L", "kind": "signature", "report": "METER-1", "driver": "D1", "signature": "D1-handwritten-1"},
+      {"id": "ACK-D1-PLATFORM-L", "kind": "signature", "report": "PLATFORM-9", "driver": "D1", "signature": "D1-handwritten-2"}
+    ]
+  }
 }
