@@ -1,0 +1,8 @@
+{
+  "driver": "D1",
+  "maximum_minutes": 480,
+  "logs": [
+    {"id":"METER-1","driver":"D1","minutes":300,"source":"meter","start":"08:00","end":"13:00"},
+    {"id":"PLATFORM-9","driver":"D1","minutes":300,"source":"dispatch","start":"08:02","end":"13:02"}
+  ]
+}
