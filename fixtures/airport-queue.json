@@ -1,0 +1,10 @@
+{
+  "requests": [
+    {"id": "P1", "landing_minute": 375, "baggage_minutes": 15, "flight_delay_minutes": 0, "latest_pickup_minute": 410, "region": "CITY", "passengers": 2},
+    {"id": "P2", "landing_minute": 385, "baggage_minutes": 20, "flight_delay_minutes": 0, "latest_pickup_minute": 420, "region": "CITY", "passengers": 1}
+  ],
+  "cabs": [
+    {"id": "CAB-1", "ready_minute": 380, "seats": 4, "regions": ["CITY"], "queue_ticket_minute": 370, "return_to_curb_minutes": 20},
+    {"id": "CAB-2", "ready_minute": 405, "seats": 4, "regions": ["CITY"], "queue_ticket_minute": 375, "return_to_curb_minutes": 35}
+  ]
+}
