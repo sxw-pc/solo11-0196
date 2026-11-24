@@ -1,0 +1,9 @@
+{
+  "vehicle":"CAB-4",
+  "last_service_km":149500,
+  "interval_km":2000,
+  "readings":[
+    {"id":"M1-A","ecu":"M1","event_at":10,"received_at":10,"kilometres":150000},
+    {"id":"M2-A","ecu":"M2","event_at":20,"received_at":20,"kilometres":1800,"replaced_ecu":"M1"}
+  ]
+}
