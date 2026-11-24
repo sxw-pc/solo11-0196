@@ -1,0 +1,8 @@
+{
+  "road_cell": "R-17",
+  "reports": [
+    {"report_id":"FLEET-41","vehicle_id":"CAB-7","sensor_id":"ACC-7","source_event":"E-901","event_second":500,"vertical_g":2.8,"offset_m":2},
+    {"report_id":"VENDOR-882","vehicle_id":"CAB-7","sensor_id":"ACC-7","source_event":"E-901","event_second":500,"vertical_g":2.8,"offset_m":2},
+    {"report_id":"CAB-9-NEG","vehicle_id":"CAB-9","sensor_id":"ACC-9","source_event":"E-110","event_second":506,"vertical_g":0.4,"offset_m":1}
+  ]
+}
