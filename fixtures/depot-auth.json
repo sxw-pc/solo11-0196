@@ -1,0 +1,82 @@
+{
+  "directives": [
+    {
+      "id": "AUTH-48",
+      "type": "capacity_grant",
+      "kw": 48,
+      "window": ["07:00", "08:00"],
+      "approved_at": "06:45",
+      "approver": "GRID-OPS-01",
+      "signature": "grid-sig-6f3a"
+    },
+    {
+      "id": "AUTH-48-LATE",
+      "type": "capacity_grant",
+      "kw": 48,
+      "window": ["07:00", "08:00"],
+      "approved_at": "07:30",
+      "approver": "GRID-OPS-01",
+      "signature": "grid-sig-9b21"
+    },
+    {
+      "id": "SUB-T92",
+      "type": "substitution",
+      "trip": "T-92",
+      "vehicle": "CAB-10",
+      "authorized_at": "06:50",
+      "commit_by": "07:45",
+      "manager": "OPS-MGR-02",
+      "signature": "ops-sig-41cd"
+    },
+    {
+      "id": "SUB-T92-LATE",
+      "type": "substitution",
+      "trip": "T-92",
+      "vehicle": "CAB-10",
+      "authorized_at": "07:50",
+      "commit_by": "07:45",
+      "manager": "OPS-MGR-02",
+      "signature": "ops-sig-77e0"
+    },
+    {
+      "id": "FAULT-C1",
+      "type": "charger_fault",
+      "charger": "C1",
+      "at": "07:20",
+      "cooldown_minutes": 30,
+      "reported_by": "SITE-TECH-03"
+    },
+    {
+      "id": "CANCEL-AUTH-48",
+      "type": "cancel",
+      "target": "AUTH-48",
+      "at": "06:58",
+      "by": "GRID-OPS-01"
+    },
+    {
+      "id": "COMMIT-T93",
+      "type": "commit",
+      "vehicle": {
+        "id": "CAB-11",
+        "battery_kwh": 60,
+        "soc": 0.2,
+        "soc_cap": 0.95,
+        "connector": "CCS",
+        "acceptance": [
+          {"until_soc": 0.8, "kw": 22},
+          {"until_soc": 0.95, "kw": 10},
+          {"until_soc": 1.0, "kw": 4}
+        ]
+      },
+      "job": {
+        "vehicle": "CAB-11",
+        "required_kwh": 25,
+        "departure": "08:00",
+        "trip": "T-93",
+        "connector": "CCS",
+        "priority": "ordinary"
+      },
+      "trip": {"id": "T-93", "vehicle": "CAB-11", "departure": "08:00", "min_soc": 0.6, "reserve_kwh": 8, "priority": "ordinary"}
+    }
+  ]
+}

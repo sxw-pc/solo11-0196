@@ -1,7 +1,18 @@
 {
   "start": "07:00",
   "end": "08:00",
+  "horizon_end": "09:30",
   "grid_cap_kw": 30,
+  "site": {
+    "charge_efficiency": 0.9,
+    "aux_kw_per_session": 1.0,
+    "interval_minutes": 5,
+    "turnaround_minutes": 5
+  },
+  "tariffs": [
+    {"start": "07:00", "end": "08:00", "per_kwh": 1.5},
+    {"start": "08:00", "end": "09:30", "per_kwh": 0.8}
+  ],
   "chargers": [
     {
       "id": "C1",
@@ -14,6 +25,41 @@
       "connector": "CCS"
     }
   ],
+  "vehicles": {
+    "CAB-4": {
+      "battery_kwh": 60,
+      "soc": 0.3,
+      "soc_cap": 0.95,
+      "connector": "CCS",
+      "acceptance": [
+        {"until_soc": 0.8, "kw": 22},
+        {"until_soc": 0.95, "kw": 10},
+        {"until_soc": 1.0, "kw": 4}
+      ]
+    },
+    "CAB-9": {
+      "battery_kwh": 60,
+      "soc": 0.35,
+      "soc_cap": 0.95,
+      "connector": "CCS",
+      "acceptance": [
+        {"until_soc": 0.8, "kw": 22},
+        {"until_soc": 0.95, "kw": 10},
+        {"until_soc": 1.0, "kw": 4}
+      ]
+    },
+    "CAB-10": {
+      "battery_kwh": 60,
+      "soc": 0.9,
+      "soc_cap": 0.95,
+      "connector": "CCS",
+      "acceptance": [
+        {"until_soc": 0.8, "kw": 22},
+        {"until_soc": 0.95, "kw": 10},
+        {"until_soc": 1.0, "kw": 4}
+      ]
+    }
+  },
   "jobs": [
     {
       "vehicle": "CAB-4",
@@ -32,10 +78,17 @@
       "priority": "ordinary"
     }
   ],
+  "trips": [
+    {"id": "T-91", "vehicle": "CAB-4", "departure": "08:00", "min_soc": 0.6, "reserve_kwh": 8, "priority": "medical"},
+    {"id": "T-92", "vehicle": "CAB-9", "departure": "08:00", "min_soc": 0.6, "reserve_kwh": 8, "priority": "ordinary"}
+  ],
   "reserve_vehicle": {
     "vehicle": "CAB-10",
     "available": "07:30",
     "charge_ready": true,
-    "can_cover": "T-92"
+    "can_cover": ["T-92"],
+    "driver": "D-77",
+    "driver_certified": true,
+    "condition": "inspected"
   }
 }
