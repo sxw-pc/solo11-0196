@@ -1,8 +1,726 @@
 {
+  "case_id": "road-spike-replay",
+  "subject": "same CAB-7 ACC-7 E-901 spike forwarded by fleet platform and device vendor",
+  "threshold_g": 2.5,
+  "origin_reference": {
+    "lat": 31.23,
+    "lon": 121.47
+  },
   "road_cell": "R-17",
+  "road_network": {
+    "road_id": "RD-BINHAI-01",
+    "name": "Binhai trial section",
+    "axis": "east_west",
+    "origin": {
+      "lat": 31.23,
+      "lon": 121.47
+    },
+    "chainage_at_origin_m": 0.0,
+    "road_width_m": 7.5,
+    "cells": [
+      {
+        "cell_id": "R-15",
+        "start_m": 280.0,
+        "end_m": 300.0
+      },
+      {
+        "cell_id": "R-16",
+        "start_m": 300.0,
+        "end_m": 320.0
+      },
+      {
+        "cell_id": "R-17",
+        "start_m": 320.0,
+        "end_m": 340.0
+      },
+      {
+        "cell_id": "R-18",
+        "start_m": 340.0,
+        "end_m": 360.0
+      },
+      {
+        "cell_id": "R-19",
+        "start_m": 360.0,
+        "end_m": 380.0
+      }
+    ]
+  },
+  "keyring": {
+    "FLEET-PLATFORM": "demo-fleet-secret",
+    "VENDOR-CLOUD": "demo-vendor-secret",
+    "CAB7-TCU": "demo-cab7-origin-secret",
+    "CAB9-TCU": "demo-cab9-secret",
+    "CAB10-TCU": "demo-cab10-origin-secret",
+    "RS-ANCHOR": "demo-roadside-anchor-secret",
+    "MUN-SURVEY": "demo-municipal-survey-secret",
+    "CITY-WORKSHOP": "demo-city-workshop-secret"
+  },
   "reports": [
-    {"report_id":"FLEET-41","vehicle_id":"CAB-7","sensor_id":"ACC-7","source_event":"E-901","event_second":500,"vertical_g":2.8,"offset_m":2},
-    {"report_id":"VENDOR-882","vehicle_id":"CAB-7","sensor_id":"ACC-7","source_event":"E-901","event_second":500,"vertical_g":2.8,"offset_m":2},
-    {"report_id":"CAB-9-NEG","vehicle_id":"CAB-9","sensor_id":"ACC-9","source_event":"E-110","event_second":506,"vertical_g":0.4,"offset_m":1}
+    {
+      "report_id": "FLEET-41",
+      "vehicle_id": "CAB-7",
+      "sensor_id": "ACC-7",
+      "source_event": "E-901",
+      "event_second": 500,
+      "vertical_g": 2.8,
+      "offset_m": 2,
+      "key_id": "FLEET-PLATFORM",
+      "forwarding_agent": "operations_platform",
+      "chainage_m": 336.0,
+      "gps": {
+        "lat": 31.230018,
+        "lon": 121.4735298,
+        "datum": "WGS84",
+        "error_m": 6.0
+      },
+      "gps_error_m": 6.0,
+      "odometer_uncertainty_m": 4.0,
+      "series_sha256": "4196aabe2f01276ce4f6fe03567a184c3769a6c4e07aa2931678b321abbe9778",
+      "signature": "a5f7586a11ec2a156f1d9b761ec7edbf379e93261a00a3c0f46646f1037a27fe"
+    },
+    {
+      "report_id": "VENDOR-882",
+      "vehicle_id": "CAB-7",
+      "sensor_id": "ACC-7",
+      "source_event": "E-901",
+      "event_second": 500,
+      "vertical_g": 2.8,
+      "offset_m": 2,
+      "key_id": "VENDOR-CLOUD",
+      "forwarding_agent": "device_vendor",
+      "encoding": "vendor-reencoded-v3",
+      "chainage_m": 336.0,
+      "gps": {
+        "lat": 31.230018,
+        "lon": 121.4735298,
+        "datum": "WGS84",
+        "error_m": 6.0
+      },
+      "gps_error_m": 6.0,
+      "odometer_uncertainty_m": 4.0,
+      "series_sha256": "4196aabe2f01276ce4f6fe03567a184c3769a6c4e07aa2931678b321abbe9778",
+      "signature": "3a32721643f8c5305e80deccff91066e8b4dc118d1626efa8f3ffa7fc1bac5ec"
+    },
+    {
+      "report_id": "CAB-9-NEG",
+      "vehicle_id": "CAB-9",
+      "sensor_id": "ACC-9",
+      "source_event": "E-110",
+      "event_second": 506,
+      "vertical_g": 0.4,
+      "offset_m": 1,
+      "key_id": "CAB9-TCU",
+      "chainage_m": 331.0,
+      "gps": {
+        "lat": 31.230009,
+        "lon": 121.4734773,
+        "datum": "WGS84",
+        "error_m": 5.0
+      },
+      "gps_error_m": 5.0,
+      "odometer_uncertainty_m": 3.0,
+      "signature": "98244113101aeba0a8f59ce78a934eb78c65399533c8edee64704d6a05f53345"
+    }
+  ],
+  "packets": [
+    {
+      "report_id": "FLEET-41",
+      "vehicle_id": "CAB-7",
+      "sensor_id": "ACC-7",
+      "source_event": "E-901",
+      "event_second": 500,
+      "vertical_g": 2.8,
+      "offset_m": 2,
+      "key_id": "FLEET-PLATFORM",
+      "forwarding_agent": "operations_platform",
+      "chainage_m": 336.0,
+      "gps": {
+        "lat": 31.230018,
+        "lon": 121.4735298,
+        "datum": "WGS84",
+        "error_m": 6.0
+      },
+      "gps_error_m": 6.0,
+      "odometer_uncertainty_m": 4.0,
+      "series_sha256": "4196aabe2f01276ce4f6fe03567a184c3769a6c4e07aa2931678b321abbe9778",
+      "signature": "a5f7586a11ec2a156f1d9b761ec7edbf379e93261a00a3c0f46646f1037a27fe"
+    },
+    {
+      "report_id": "VENDOR-882",
+      "vehicle_id": "CAB-7",
+      "sensor_id": "ACC-7",
+      "source_event": "E-901",
+      "event_second": 500,
+      "vertical_g": 2.8,
+      "offset_m": 2,
+      "key_id": "VENDOR-CLOUD",
+      "forwarding_agent": "device_vendor",
+      "encoding": "vendor-reencoded-v3",
+      "chainage_m": 336.0,
+      "gps": {
+        "lat": 31.230018,
+        "lon": 121.4735298,
+        "datum": "WGS84",
+        "error_m": 6.0
+      },
+      "gps_error_m": 6.0,
+      "odometer_uncertainty_m": 4.0,
+      "series_sha256": "4196aabe2f01276ce4f6fe03567a184c3769a6c4e07aa2931678b321abbe9778",
+      "signature": "3a32721643f8c5305e80deccff91066e8b4dc118d1626efa8f3ffa7fc1bac5ec"
+    },
+    {
+      "report_id": "CAB-9-NEG",
+      "vehicle_id": "CAB-9",
+      "sensor_id": "ACC-9",
+      "source_event": "E-110",
+      "event_second": 506,
+      "vertical_g": 0.4,
+      "offset_m": 1,
+      "key_id": "CAB9-TCU",
+      "chainage_m": 331.0,
+      "gps": {
+        "lat": 31.230009,
+        "lon": 121.4734773,
+        "datum": "WGS84",
+        "error_m": 5.0
+      },
+      "gps_error_m": 5.0,
+      "odometer_uncertainty_m": 3.0,
+      "signature": "98244113101aeba0a8f59ce78a934eb78c65399533c8edee64704d6a05f53345"
+    }
+  ],
+  "time_series": {
+    "E-901": {
+      "sample_hz": 100,
+      "vertical_g": [
+        0.82,
+        0.95,
+        1.05,
+        1.31,
+        1.72,
+        2.8,
+        2.34,
+        1.61,
+        1.18,
+        0.96,
+        0.88
+      ],
+      "sha256": "4196aabe2f01276ce4f6fe03567a184c3769a6c4e07aa2931678b321abbe9778"
+    }
+  },
+  "provenance_chains": [
+    {
+      "chain_id": "CHAIN-E901-FLEET",
+      "kind": "provenance_chain",
+      "source_event": "E-901",
+      "origin_key_id": "CAB7-TCU",
+      "origin_payload_hash": "0f9bbec2a99d563bf3b847c7cd1f46f04b8e621f1cdd13dace945d2182647144",
+      "origin_signature": "63cc495924ab1983a402fc42723d695193e615379f19ee3b529d0d1f0d80567b",
+      "report_ids": [
+        "FLEET-41"
+      ],
+      "hops": [
+        {
+          "seq": 1,
+          "actor": "CAB7-TCU",
+          "key_id": "CAB7-TCU",
+          "payload_hash": "0f9bbec2a99d563bf3b847c7cd1f46f04b8e621f1cdd13dace945d2182647144",
+          "prev_hash": null,
+          "hop_hash": "8e42dd27ca92e897000565734aa14e4f46ddb6f7ea63b24e60dbd4c1d11d01d8",
+          "signature": "3560f06e36b0cd95ee2ed2b6a842f102802dda0c90649336ae108ea6878eb49a"
+        },
+        {
+          "seq": 2,
+          "actor": "operations-platform",
+          "key_id": "FLEET-PLATFORM",
+          "payload_hash": "0f9bbec2a99d563bf3b847c7cd1f46f04b8e621f1cdd13dace945d2182647144",
+          "prev_hash": "8e42dd27ca92e897000565734aa14e4f46ddb6f7ea63b24e60dbd4c1d11d01d8",
+          "report_id": "FLEET-41",
+          "hop_hash": "77c83ea6268c3887117a2275ba9cad223627d8787fbc6a54583a384bd5a52a2b",
+          "signature": "1f6821a81b1f83252767a430a41c8cf70ece9ef2870e79592593aaa8c422a984"
+        }
+      ]
+    },
+    {
+      "chain_id": "CHAIN-E901-VENDOR",
+      "kind": "provenance_chain",
+      "source_event": "E-901",
+      "origin_key_id": "CAB7-TCU",
+      "origin_payload_hash": "0f9bbec2a99d563bf3b847c7cd1f46f04b8e621f1cdd13dace945d2182647144",
+      "origin_signature": "63cc495924ab1983a402fc42723d695193e615379f19ee3b529d0d1f0d80567b",
+      "report_ids": [
+        "VENDOR-882"
+      ],
+      "hops": [
+        {
+          "seq": 1,
+          "actor": "CAB7-TCU",
+          "key_id": "CAB7-TCU",
+          "payload_hash": "0f9bbec2a99d563bf3b847c7cd1f46f04b8e621f1cdd13dace945d2182647144",
+          "prev_hash": null,
+          "hop_hash": "8e42dd27ca92e897000565734aa14e4f46ddb6f7ea63b24e60dbd4c1d11d01d8",
+          "signature": "3560f06e36b0cd95ee2ed2b6a842f102802dda0c90649336ae108ea6878eb49a"
+        },
+        {
+          "seq": 2,
+          "actor": "device-vendor-cloud",
+          "key_id": "VENDOR-CLOUD",
+          "payload_hash": "0f9bbec2a99d563bf3b847c7cd1f46f04b8e621f1cdd13dace945d2182647144",
+          "prev_hash": "8e42dd27ca92e897000565734aa14e4f46ddb6f7ea63b24e60dbd4c1d11d01d8",
+          "report_id": "VENDOR-882",
+          "hop_hash": "e7823d4ffd444b2a5ab6274e1f6bfee8d2b05c8cd360ade7408b05f4f61d5cd5",
+          "signature": "1b3da14092620ea364df482302c13a5e6539ba12973f7e02b02dae4a15e62572"
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "SEAL-E901",
+      "kind": "origin_seal",
+      "source_event": "E-901",
+      "origin_payload_hash": "0f9bbec2a99d563bf3b847c7cd1f46f04b8e621f1cdd13dace945d2182647144",
+      "vehicle_id": "CAB-7",
+      "sensor_id": "ACC-7",
+      "key_id": "CAB7-TCU",
+      "sealed_at": "2026-11-20T19:10+08:00",
+      "signature": "264069ee41fa3b801ad81b4589811db4a895ccf42ea5dad96fad7cea320ed0e5"
+    },
+    {
+      "evidence_id": "REPAIR-CAB7-BRACKET",
+      "kind": "repair_order",
+      "order_id": "WO-2026-1118-CAB7",
+      "vehicle_id": "CAB-7",
+      "sensor_id": "ACC-7",
+      "source_event": "E-901",
+      "reported_at": "2026-11-18T08:20+08:00",
+      "inspected_at": "2026-11-18T09:05+08:00",
+      "event_at": "2026-11-20T17:40+08:00",
+      "condition": "loose_bracket",
+      "finding": "ACC-7 bracket loose before E-901; aged bushing; 2.8g spike matches mount resonance and is not road-surface evidence",
+      "faulty_probe": true,
+      "renders_positive_invalid": true,
+      "key_id": "CITY-WORKSHOP",
+      "signature": "24ea3c24c759817a6ccfb8cb65884583fe3d0b86e053d7ab27affc51e3bb42d7"
+    },
+    {
+      "evidence_id": "REPLAY-CAB10-R18",
+      "kind": "replay_run",
+      "run_id": "REDRIVE-CAB10-20261121",
+      "vehicle_id": "CAB-10",
+      "sensor_id": "ACC-10",
+      "source_event": "E-2044",
+      "replayed_cell": "R-18",
+      "event_second": 1840,
+      "peak_vertical_g": 2.91,
+      "chainage_m": 345.6,
+      "gps": {
+        "lat": 31.2300135,
+        "lon": 121.4736307,
+        "datum": "WGS84",
+        "error_m": 2.5
+      },
+      "gps_error_m": 2.5,
+      "odometer_uncertainty_m": 1.5,
+      "raw_series": [
+        0.79,
+        0.98,
+        1.22,
+        1.68,
+        2.91,
+        2.41,
+        1.55,
+        1.12,
+        0.93,
+        0.84
+      ],
+      "raw_series_sha256": "2b4d0ef70c069a1dadc6ab6bd849a9f7b0350acfeacadd581b84baf91aa37c47",
+      "roadside_anchor_id": "RS-07",
+      "key_id": "CAB10-TCU",
+      "captured_at": "2026-11-21T10:15+08:00",
+      "signature": "fa5ca735600bafde30579462ab9b473a1232853fd86970f8fbcbc50c9ba7de1b"
+    },
+    {
+      "evidence_id": "ANCHOR-RS07",
+      "kind": "roadside_anchor",
+      "anchor_id": "RS-07",
+      "road_cell": "R-18",
+      "chainage_m": 345.0,
+      "error_m": 0.8,
+      "description": "calibrated roadside marker post",
+      "key_id": "RS-ANCHOR",
+      "signature": "0d8fe574e16ecd12c20e8edd6a7ab72bc0149dfe588e89c5020877916e8a94d8"
+    },
+    {
+      "evidence_id": "SURVEY-22",
+      "kind": "municipal_survey",
+      "survey_id": "CITY-SURVEY-22",
+      "road_cell": "R-18",
+      "chainage_m": 344.6,
+      "error_m": 0.3,
+      "measurement": "pothole 0.42m x 0.31m x 0.06m",
+      "key_id": "MUN-SURVEY",
+      "signature": "2981e21b4622e6467e713fa631316b9c298a54c510029af26ef7174d16e994f4"
+    },
+    {
+      "evidence_id": "CAL-CAB7-ACC7-LATE",
+      "kind": "calibration",
+      "vehicle_id": "CAB-7",
+      "sensor_id": "ACC-7",
+      "source_event": "E-901",
+      "target_source_key": "probe:CAB-7:ACC-7#E-901",
+      "calibrated_at": "2026-11-22T09:00+08:00",
+      "odometer_offset_m": 1.2,
+      "chainage_m": 337.2,
+      "error_m": 2.0,
+      "interval_m": [
+        335.2,
+        339.2
+      ],
+      "note": "late bench calibration narrows E-901 odometer envelope inside R-17",
+      "key_id": "CITY-WORKSHOP",
+      "signature": "352bc793d237ca50cfb0d96e8090deb442fb3f4aff1d458e7f20c2bd7d6cc9a3"
+    }
+  ],
+  "late_evidence": [
+    {
+      "evidence_id": "CAL-CAB7-ACC7-LATE",
+      "kind": "calibration",
+      "vehicle_id": "CAB-7",
+      "sensor_id": "ACC-7",
+      "source_event": "E-901",
+      "target_source_key": "probe:CAB-7:ACC-7#E-901",
+      "calibrated_at": "2026-11-22T09:00+08:00",
+      "odometer_offset_m": 1.2,
+      "chainage_m": 337.2,
+      "error_m": 2.0,
+      "interval_m": [
+        335.2,
+        339.2
+      ],
+      "note": "late bench calibration narrows E-901 odometer envelope inside R-17",
+      "key_id": "CITY-WORKSHOP",
+      "signature": "352bc793d237ca50cfb0d96e8090deb442fb3f4aff1d458e7f20c2bd7d6cc9a3"
+    }
+  ],
+  "published_announcement": {
+    "announcement_id": "ANN-R17",
+    "version": 1,
+    "kind": "publication",
+    "road_cell": "R-17",
+    "state": "confirmed",
+    "state_zh": "已确认",
+    "title": "R-17 road damage hotspot confirmed",
+    "published_at": "2026-11-20T18:00+08:00",
+    "location": {
+      "road_cell": "R-17",
+      "chainage_m": 336.0,
+      "lat": 31.230018,
+      "lon": 121.4735298,
+      "location_version": "loc-v1-point",
+      "layered": false
+    },
+    "basis": {
+      "algorithm": "positive_reports>=2",
+      "positive_reports": 2,
+      "report_ids": [
+        "FLEET-41",
+        "VENDOR-882"
+      ],
+      "forwarding_agents": [
+        "operations_platform",
+        "device_vendor"
+      ],
+      "claimed_independent_witnesses": 2
+    },
+    "source_versions": {
+      "schema": "road-spike-replay@v1",
+      "report_ids": [
+        "FLEET-41",
+        "VENDOR-882",
+        "CAB-9-NEG"
+      ],
+      "packet_hashes": [
+        "0e0ec54033748f3c565ee3fc619a41d48bff9a4f695223ccd53319741796098c",
+        "66d90de9a4453deb41494ec14bc5dc59c4f00a694d0c271d5029b8b4dbeaf361",
+        "8028811834a711135f21c4b3ce6a88ab112799c9105ff26f41319b723d138221"
+      ],
+      "location_version": "loc-v1-point"
+    }
+  },
+  "announcements": [
+    {
+      "announcement_id": "ANN-R17",
+      "version": 1,
+      "kind": "publication",
+      "road_cell": "R-17",
+      "state": "confirmed",
+      "state_zh": "已确认",
+      "title": "R-17 road damage hotspot confirmed",
+      "published_at": "2026-11-20T18:00+08:00",
+      "location": {
+        "road_cell": "R-17",
+        "chainage_m": 336.0,
+        "lat": 31.230018,
+        "lon": 121.4735298,
+        "location_version": "loc-v1-point",
+        "layered": false
+      },
+      "basis": {
+        "algorithm": "positive_reports>=2",
+        "positive_reports": 2,
+        "report_ids": [
+          "FLEET-41",
+          "VENDOR-882"
+        ],
+        "forwarding_agents": [
+          "operations_platform",
+          "device_vendor"
+        ],
+        "claimed_independent_witnesses": 2
+      },
+      "source_versions": {
+        "schema": "road-spike-replay@v1",
+        "report_ids": [
+          "FLEET-41",
+          "VENDOR-882",
+          "CAB-9-NEG"
+        ],
+        "packet_hashes": [
+          "0e0ec54033748f3c565ee3fc619a41d48bff9a4f695223ccd53319741796098c",
+          "66d90de9a4453deb41494ec14bc5dc59c4f00a694d0c271d5029b8b4dbeaf361",
+          "8028811834a711135f21c4b3ce6a88ab112799c9105ff26f41319b723d138221"
+        ],
+        "location_version": "loc-v1-point"
+      }
+    }
+  ],
+  "dispatch_orders": [
+    {
+      "order_id": "MNT-R17-01",
+      "order_type": "municipal_road_repair",
+      "road_cell": "R-17",
+      "state": "issued",
+      "issued_at": "2026-11-20T18:30+08:00",
+      "basis": {
+        "rule": "two_positive_reports",
+        "report_ids": [
+          "FLEET-41",
+          "VENDOR-882"
+        ],
+        "claimed_independent_witnesses": 2,
+        "warning": "two report ids from one physical probe"
+      }
+    }
+  ],
+  "verification_routes": {
+    "A_probe_fault": {
+      "route_id": "A",
+      "route": "probe_fault",
+      "title": "Signed origin seal + pre-event loose bracket repair order",
+      "evidence_ids": [
+        "SEAL-E901",
+        "REPAIR-CAB7-BRACKET"
+      ],
+      "announcement_id": "ANN-R17",
+      "target_cell": "R-17",
+      "target_cells": [
+        "R-17",
+        "R-18"
+      ],
+      "revoke_order_ids": [
+        "MNT-R17-01"
+      ],
+      "expected": {
+        "r17_state": "unverified",
+        "announcement_correction_state_zh": "待核",
+        "valid_two_witness_dispatch": false,
+        "revoked_orders": [
+          "MNT-R17-01"
+        ]
+      }
+    },
+    "B_independent_replay": {
+      "route_id": "B",
+      "route": "independent_replay",
+      "title": "E-901 origin chains + independent CAB-10 re-drive + roadside anchor",
+      "evidence_ids": [
+        "CHAIN-E901-FLEET",
+        "CHAIN-E901-VENDOR",
+        "REPLAY-CAB10-R18",
+        "ANCHOR-RS07",
+        "SURVEY-22"
+      ],
+      "announcement_id": "ANN-R17",
+      "target_cell": "R-17",
+      "target_cells": [
+        "R-17",
+        "R-18"
+      ],
+      "confirmed_cell": "R-18",
+      "supersede_order_ids": [
+        "MNT-R17-01"
+      ],
+      "new_order_id": "MNT-R18-CAB7-CAB10",
+      "expected": {
+        "confirmed_cell": "R-18",
+        "independent_witnesses": 2,
+        "witness_vehicles": [
+          "CAB-10",
+          "CAB-7"
+        ],
+        "new_order_id": "MNT-R18-CAB7-CAB10"
+      }
+    },
+    "LATE_calibration": {
+      "route_id": "LATE",
+      "route": "late_evidence",
+      "title": "Late CAB-7 calibration recomputes only intersected cells",
+      "evidence_ids": [
+        "CAL-CAB7-ACC7-LATE"
+      ],
+      "target_cells": []
+    }
+  },
+  "gps_trajectories": [
+    {
+      "vehicle_id": "CAB-7",
+      "source_event": "E-901",
+      "sample": "1 Hz fused GNSS/odom",
+      "points": [
+        {
+          "event_second": 496,
+          "chainage_m": 312,
+          "lat": 31.230018,
+          "lon": 121.4732777,
+          "error_m": 6.0
+        },
+        {
+          "event_second": 497,
+          "chainage_m": 318,
+          "lat": 31.230018,
+          "lon": 121.4733407,
+          "error_m": 6.0
+        },
+        {
+          "event_second": 498,
+          "chainage_m": 324.2,
+          "lat": 31.230018,
+          "lon": 121.4734059,
+          "error_m": 6.0
+        },
+        {
+          "event_second": 499,
+          "chainage_m": 330.1,
+          "lat": 31.230018,
+          "lon": 121.4734679,
+          "error_m": 6.0
+        },
+        {
+          "event_second": 500,
+          "chainage_m": 336.0,
+          "lat": 31.230018,
+          "lon": 121.4735298,
+          "error_m": 6.0
+        },
+        {
+          "event_second": 501,
+          "chainage_m": 341.8,
+          "lat": 31.230018,
+          "lon": 121.4735908,
+          "error_m": 6.0
+        },
+        {
+          "event_second": 502,
+          "chainage_m": 347.9,
+          "lat": 31.230018,
+          "lon": 121.4736549,
+          "error_m": 6.0
+        }
+      ]
+    },
+    {
+      "vehicle_id": "CAB-9",
+      "source_event": "E-110",
+      "points": [
+        {
+          "event_second": 503,
+          "chainage_m": 319.0,
+          "lat": 31.230009,
+          "lon": 121.4733512,
+          "error_m": 5.0
+        },
+        {
+          "event_second": 504,
+          "chainage_m": 323.2,
+          "lat": 31.230009,
+          "lon": 121.4733954,
+          "error_m": 5.0
+        },
+        {
+          "event_second": 505,
+          "chainage_m": 327.0,
+          "lat": 31.230009,
+          "lon": 121.4734353,
+          "error_m": 5.0
+        },
+        {
+          "event_second": 506,
+          "chainage_m": 331.0,
+          "lat": 31.230009,
+          "lon": 121.4734773,
+          "error_m": 5.0
+        },
+        {
+          "event_second": 507,
+          "chainage_m": 335.4,
+          "lat": 31.230009,
+          "lon": 121.4735235,
+          "error_m": 5.0
+        }
+      ]
+    },
+    {
+      "vehicle_id": "CAB-10",
+      "source_event": "E-2044",
+      "run_id": "REDRIVE-CAB10-20261121",
+      "points": [
+        {
+          "event_second": 1837,
+          "chainage_m": 333.4,
+          "lat": 31.2300135,
+          "lon": 121.4735025,
+          "error_m": 2.5
+        },
+        {
+          "event_second": 1838,
+          "chainage_m": 339.6,
+          "lat": 31.2300135,
+          "lon": 121.4735677,
+          "error_m": 2.5
+        },
+        {
+          "event_second": 1839,
+          "chainage_m": 342.7,
+          "lat": 31.2300135,
+          "lon": 121.4736002,
+          "error_m": 2.5
+        },
+        {
+          "event_second": 1840,
+          "chainage_m": 345.6,
+          "lat": 31.2300135,
+          "lon": 121.4736307,
+          "error_m": 2.5
+        },
+        {
+          "event_second": 1841,
+          "chainage_m": 348.8,
+          "lat": 31.2300135,
+          "lon": 121.4736643,
+          "error_m": 2.5
+        }
+      ]
+    }
   ]
 }
