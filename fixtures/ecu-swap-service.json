@@ -1,9 +1,99 @@
 {
-  "vehicle":"CAB-4",
-  "last_service_km":149500,
-  "interval_km":2000,
-  "readings":[
-    {"id":"M1-A","ecu":"M1","event_at":10,"received_at":10,"kilometres":150000},
-    {"id":"M2-A","ecu":"M2","event_at":20,"received_at":20,"kilometres":1800,"replaced_ecu":"M1"}
-  ]
+  "vehicle": "CAB-4",
+  "vin": "LFV-CAB4-0001",
+  "interval_km": 2000,
+  "last_service_km": 149500,
+  "last_service_ref": "SV-LEGACY",
+  "readings": [
+    {
+      "id": "M1-A",
+      "vin": "LFV-CAB4-0001",
+      "ecu": "M1",
+      "event_at": 10,
+      "received_at": 10,
+      "kilometres": 150000,
+      "pulses": 150000000,
+      "replaced_ecu": null
+    },
+    {
+      "id": "M2-A",
+      "vin": "LFV-CAB4-0001",
+      "ecu": "M2",
+      "event_at": 20,
+      "received_at": 20,
+      "kilometres": 1800,
+      "pulses": 1800000,
+      "replaced_ecu": "M1"
+    }
+  ],
+  "ecu_swaps": [
+    {
+      "id": "SWAP-1",
+      "vin": "LFV-CAB4-0001",
+      "removed_ecu": "M1",
+      "installed_ecu": "M2",
+      "event_at": 15,
+      "reason": "meter controller failure",
+      "seal": {
+        "removed_seal_id": "SEAL-M1-7781",
+        "installed_seal_id": "SEAL-M2-3320",
+        "inspector": "INSPECTOR-QI-09",
+        "inspector_signature": {
+          "key_id": "seal-test-key",
+          "value": "d2654538e8f74aa22e0ec8abeb2e676afe00b1d55799c8561f3a6a6ee355a202"
+        }
+      },
+      "handover": {
+        "removed_reading_km": 150000,
+        "removed_pulses": 150000000,
+        "pulse_per_km": 1000,
+        "wheel_circumference_mm": 2050,
+        "calibration_device": "CAL-RIG-12",
+        "calibration_tolerance_pct": 0.1,
+        "calibration_signature": {
+          "key_id": "calibration-test-key",
+          "value": "393f7cdb9d14e40dcd63772a43aaa772580fbb4bb8fe8a71c0137f0600c06674"
+        }
+      },
+      "garage_signature": {
+        "key_id": "garage-test-key",
+        "value": "d24e3fb52ef6284a5cf2159c431d70019b9fd345ecf8e6b625eeafc37ebe8856"
+      },
+      "fleet_reviewer_signature": {
+        "key_id": "fleet-test-key",
+        "value": "29baecea0947c2a6b9ff1f4d6c709b75f16790060b8ada362e26d8969c2e7f68"
+      }
+    }
+  ],
+  "service_orders": [],
+  "no_service_statements": [],
+  "last_service": {
+    "order_id": "SV-LEGACY",
+    "cumulative_km": 149500,
+    "note": "last independently evidenced maintenance"
+  },
+  "initial_certificate": {
+    "certificate_id": "CERT-INIT",
+    "vin": "LFV-CAB4-0001",
+    "issued_at": 20,
+    "status": "未到期",
+    "frozen_meter_km": 1800,
+    "frozen_service_km": 149500,
+    "frozen_interval_km": 2000,
+    "meter_segments": [
+      {
+        "ecu": "M1",
+        "raw_end_km": 150000,
+        "cumulative_end_km": 150000
+      },
+      {
+        "ecu": "M2",
+        "raw_end_km": 1800,
+        "cumulative_end_km": null,
+        "note": "baseline treated raw 1800 as total vehicle distance"
+      }
+    ],
+    "service_ref": "SV-LEGACY",
+    "baseline_error": "new controller low reading subtracted directly from last service km"
+  }
 }
